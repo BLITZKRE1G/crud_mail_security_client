@@ -25,6 +25,6 @@ public class DemoApplication {
 
 	@EventListener(ApplicationReadyEvent.class)
 	public void triggerMail() {
-		service.sendText("barmanarunima03@gmail.com", "I LOVE❤️ U", "😂");
+		service.sendWithAttachments("barmanarunima03@gmail.com", "I LOVE❤️ U", null, null, "\\Users\\voyager\\Documents\\Projects\\GitHub Projects\\demo\\src\\main\\resources\\static\\memento-mori.jpg");
 	}
 }

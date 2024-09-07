@@ -3,10 +3,8 @@ package com.abhinab.demo.mail.controllers;
 import com.abhinab.demo.mail.services.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.lang.Nullable;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/users/mail")
@@ -20,7 +18,18 @@ public class MailController {
     }
 
     @PostMapping(value = "/send-basic")
-    public void sendTextMail(String toMail, String subject, String message) {
-        service.sendText(toMail, subject, message);
+    public void sendTextMail(@RequestParam("toMail") String toMail, @RequestParam("subject") String subject,
+            @RequestParam("message") String messageContent) {
+        service.sendText(toMail, subject, messageContent);
+    }
+
+    @GetMapping(value = "/send-attachment")
+    public void sendWithAttachent(
+            @RequestParam("to-email") String toMail,
+            String subject,
+            @Nullable String[] cc,
+            @Nullable String[] bcc,
+            @RequestParam("message-content") String messageContent) {
+        service.sendWithAttachments(toMail, subject, cc, bcc, messageContent);
     }
 }
